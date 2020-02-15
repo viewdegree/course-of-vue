@@ -1,0 +1,48 @@
+<!--
+ * @Author: viewdegree
+ * @Date: 2020-02-16 00:29:38
+ * @LastEditTime: 2020-02-16 00:30:32
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \入门篇\01-调用vue的cdn.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+ </head>
+ <body>
+     <div id="app">{{msg}}
+        <input type="text" v-model="info">
+        <!-- v-on===@ -->
+        <button @click="handleClick">添加</button>
+        <ul>
+            <li v-for="item in list">{{item}}</li>
+        </ul>
+     </div>    
+ </body>
+ <!-- 调用vue的api -->
+ <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ <script>
+     new Vue({
+         el:'#app',//将vue实例挂载到节点上
+         data(){     //输出数据
+             return{
+                 msg: 'hello greektime',
+                 info:'',   //双向绑定
+                 list: []
+             }
+         },
+         methods:{
+            handleClick(){
+                 console.log(this.info);
+                 this.list.push(this.info);
+                 this.info = ""
+             }
+         }
+     })
+ </script>
+ </html>
