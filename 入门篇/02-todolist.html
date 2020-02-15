@@ -13,6 +13,12 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <title>Document</title>
+     <style>
+        .li{
+            color: red;
+        }
+     
+     </style>
  </head>
  <body>
      <div id="app">{{msg}}
@@ -20,7 +26,8 @@
         <!-- v-on===@ -->
         <button @click="handleClick">添加</button>
         <ul>
-            <li v-for="item in list">{{item}}</li>
+            <!-- v-blind === :  数据绑定如果不写那么vue就拿不到前面的item--> 
+            <todo-item v-for="item in list" :item="item"></todo-item>
         </ul>
      </div>    
  </body>
@@ -44,5 +51,14 @@
              }
          }
      })
+    //  自定义标签  vue组件
+    Vue.component('todo-item',{
+        template: '<li class="li">{{item}}</li>',
+        props:['item']
+    })
+
+
+    // 缺点无法高点
+    //类名是全局的
  </script>
  </html>
