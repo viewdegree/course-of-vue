@@ -27,7 +27,7 @@
         <button @click="handleClick">添加</button>
         <ul>
             <!-- v-blind === :  数据绑定如果不写那么vue就拿不到前面的item--> 
-            <todo-item v-for="item in list" :item="item"></todo-item>
+            <todo-item v-for="item2 in list" :item="item2"></todo-item>
         </ul>
      </div>    
  </body>
@@ -54,11 +54,18 @@
     //  自定义标签  vue组件
     Vue.component('todo-item',{
         template: '<li class="li">{{item}}</li>',
-        props:['item']
+        props:['item']  //为了让template传到item上
     })
 
 
-    // 缺点无法高点
-    //类名是全局的
+    /**
+    Vue.component缺点
+    1. 全局定义     强制要求每个component中的命名不能重复
+    2. 字符串模板   缺乏语法高亮.在html有多行时,要用到丑陋的\转义
+    3. 不支持css    意味着当html和js组件化时,css明显被遗漏,就是全局定义的css会被作用到组件生成的dom元素中
+    4.没有构建步骤  限制只能使用html和es5,不能使用预处理器,如pug(formerly Jade)和Babel
+    
+    */
+
  </script>
  </html>
