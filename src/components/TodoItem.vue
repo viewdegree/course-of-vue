@@ -8,7 +8,10 @@
  -->
 <!-- 按住s自动生成 -->
 <template>
-    <li class="li">{{item}}</li>
+    <li class="li">
+        <!-- 接收View层传递的插槽数据 -->
+        <slot></slot>
+    </li>
 </template>
 
 <script>
