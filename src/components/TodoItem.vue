@@ -10,7 +10,7 @@
 <template>
     <li class="li">
         <!-- 接收View层传递的插槽数据 -->
-        <slot></slot>
+        <slot name="item"></slot>
     </li>
 </template>
 
