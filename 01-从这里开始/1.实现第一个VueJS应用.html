@@ -17,6 +17,8 @@
 </head>
 <body>
     <div id="app">
+        <!-- 注意这些有指令或模板语法的元素都是在Vue的el属性的元素中 -->
+        <input type="text" v-on:input="changeTitle">
         <p>{{title}}</p>
     </div>
     <script>
@@ -24,6 +26,11 @@
             el:'#app',  //选中控制的html元素
             data:{      //data是一个对象
                 title:"Hello World!"
+            },
+            methods:{
+                changeTitle: function(event){//这个event是js创建的event事件对象,对象有target属性,这个target实际上就是autojs的对象属性
+                    this.title = event.target.value;
+                }
             }
         })
     </script>
