@@ -16,8 +16,8 @@
             <!-- v-blind === :  数据绑定如果不写那么vue就拿不到前面的item--> 
             <todo-item v-for="item2 in list" :key="item2">
               <!-- 插槽的写法 -->
-              <template v-slot:item>
-                <span style="font-size: 20px">{{item2}}</span>
+              <template v-slot:item="itemProps">
+                <span :style="{fontSize: '20px', color:itemProps.checked?'red':'blue'}">{{item2}}</span>
               </template>
             </todo-item>
             <!-- 绑定key的作用是默认item2是没有重复的 -->

@@ -9,14 +9,20 @@
 <!-- 按住s自动生成 -->
 <template>
     <li class="li">
+        <input type="checkbox" v-model="checked">
         <!-- 接收View层传递的插槽数据 -->
-        <slot name="item"></slot>
+        <slot name="item" v-bind="{checked}"></slot>
     </li>
 </template>
 
 <script>
 export default {
-    props:['item']
+    props:['item'],
+    data(){
+        return{
+            checked: false
+        }
+    }
 }
 </script>
 
