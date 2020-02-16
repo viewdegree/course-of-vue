@@ -25,8 +25,8 @@ export default {
     }
 }
 </script>
-
-<style>
+ <!-- 设置组件的样式为局部样式,不会污染全局样式 -->
+<style scoped> 
 .li{
     color: red;
 }
