@@ -17,7 +17,11 @@
  </head>
  <body>
      <div id="app">
-         <button v-on:click="increase">{{counter}}</button>
+         <!-- 2. 传递自定义的参数,要写绑定的Vue方法名并带上(),而且要写上实参-->
+         <button v-on:click="increase(2)">{{counter}}</button>
+         <!-- 3.传递自定的参数,同时传递事件对象参数,需要写上实参以及特定的标识名$event -->
+         <button v-on:click="decrease(2,$event)">{{counter}}</button>
+         <!-- 1.传递事件对象参数,只需写绑定的Vue方法名即可,无需写() -->
          <p v-on:mousemove="updateCoordinate">Coordinates: {{x}}/{{y}}</p>
      </div>
      <script>
@@ -29,11 +33,16 @@
                  y:0
              },
              methods:{
-                 increase:function(event){
-                     console.log(event);
-                     this.counter++;
+                //  2.传递自定义参数
+                 increase:function(step){
+                     this.counter+=step;
                  },
-                 //触发的任意操作的事件对象,event会作为参数传递绑定的methods对象的每一个方法
+                //  3.传递自定义参数和事件参数
+                 decrease:function(step,event){
+                     console.log(event);
+                     this.counter-=step;
+                 },
+                 //1.传递事件对象参数,触发的任意操作的事件对象,event会作为参数传递绑定的methods对象的每一个方法
                  updateCoordinate:function(event){
                     this.x = event.clientX;
                     this.y = event.clientY; //client是事件对象自带的属性与vue无关
