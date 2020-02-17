@@ -1,0 +1,39 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-17 15:43:35
+ * @LastEditTime: 2020-02-17 15:44:20
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\16.简写绑定v-bind和j监听v-on指令.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="changeLink">Click to Change Link</button>
+        <a v-bind:href="link">Link</a>
+        <button @click="changeLink">Click to Change Link</button>
+        <a :href="link">Link</a>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                link: 'https://google.com'
+            },
+            methods:{
+                changeLink:function(){
+                    this.link = "https://apple.com"
+                }
+            }
+        })
+    </script>
+</body>
+</html>
