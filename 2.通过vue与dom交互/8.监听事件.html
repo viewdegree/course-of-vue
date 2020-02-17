@@ -1,0 +1,36 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-17 09:50:46
+ * @LastEditTime: 2020-02-17 09:51:01
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\8.监听事件.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="increase">{{counter}}</button>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                counter:0
+            },
+            methods:{
+                increase:function(){
+                    this.counter++;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
