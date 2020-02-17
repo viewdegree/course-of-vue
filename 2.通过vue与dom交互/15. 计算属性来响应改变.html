@@ -38,6 +38,12 @@
                     return this.counter > 5?'Greater 5':'Smaller than 5'
                 }
              },
+             //观察属性
+             watch:{
+                 counter:function(value){   //一旦counter的值改变就会触发该函数,并将改变的值通过value值传递
+                    
+                 }
+             },
              methods:{
                  result:function(){
                      console.log("result函数被执行了");
@@ -49,8 +55,9 @@
              //这里将页面的counter多次用到的增加或减少的响应直接写到绑定的事件中去了,我们要做的就是根据result进行判断返回对应的字符是大了还是小了,但是在Vue的值data中不能写三目运算符,所以我们再函数里写,显示result的地方就直接调用即可
             //因为Vue不知道secondCounter的变化是否会影响result()函数所以它重复执行了result()函数,但result根本没右用到secondCounter,这就会造成不必要的运算
             //Vue实例的counter属性很好的解决了这个问题,它将属性和方法结合起来,让属性也能进行响应判断,它会监听代码中的值是否发生变化,发生变化才执行
-            //这就是我们处理依赖属性是怎么来使用comput属性的方法
-         })
+            //这就是我们处理依赖属性是怎么来使用computed属性的方法
+            //但是computed方法也有缺点就是不能执行异步代码,里面的函数必须立即返回值,中间不能访问服务器或者执行异步代码,虽然watch的属性性能没有computed效果好但是watch它可以执行异步代码
+        })
      </script>
  </body>
  </html>
