@@ -1,0 +1,50 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-17 07:44:11
+ * @LastEditTime: 2020-02-17 07:44:29
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\1.Vue对象的data属性输出到模板中.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ </head>
+ <body>
+     <div id="app">
+         <!-- 一旦属性改变后所有用到title的地方都会重新渲染 -->
+         <h1>{{title}}</h1>
+         <!-- 如果只需要渲染一次需要用v-once指令,无需参数 -->
+         <h1 v-once>{{title}}</h1>
+         <p>{{sayHello()}}- <a v-bind:href="link">Google</a>  </p>
+         <hr>
+         <span>这是转义的html</span>
+         <p>{{finishedLink}}</p>
+         <span>这是渲染到页面的html</span>
+         <!-- 现在已经无法使用了 -->
+         <p v-html="finishedLink"></p>
+     </div>
+     <script>
+         new Vue({
+             el: "#app",
+             data:{
+                 title:"hello world!",
+                 link:"http://google.com",
+                 finishedLink:"<a href='http://google.com'></a>" //一段html字符串
+             },
+             methods:{
+                 sayHello: function(){
+                    //  这里改变了Vue数据title的值
+                    this.title="sayHello改变了我";
+                     return this.title      //这里不能写title因为我们没有声明,而且要调用的Vue的数据在Vue方法中需要用到this
+                 }
+             }
+         })
+     </script>
+ </body>
+ </html>
