@@ -23,7 +23,7 @@
          <button v-on:click="secondCounter++">Increase Second</button>
          <p>Counter:{{counter}}</p>
          <p>Counter:{{secondCounter}}</p>
-         <p>Result:{{result()}}</p>
+         <p>Result:{{result()}} | {{output}}</p>
      </div>
      <script>
          new Vue({
@@ -31,6 +31,12 @@
              data:{
                  counter:0,
                  secondCounter: 0
+             },
+             computed:{ //计算属性虽然形式上是方法但是在模板中使用方式和属性是一样的只要属性名称不需要属性名+()
+                output: function(){
+                    console.log('output函数被执行了');
+                    return this.counter > 5?'Greater 5':'Smaller than 5'
+                }
              },
              methods:{
                  result:function(){
@@ -42,6 +48,8 @@
              //如果变量counter要在很多地方用到且存在大量依赖counter属性的话,就很难维护,管理全部的increase函数或者有其他给counter赋值的地方,需要记住所有的counter就会很麻烦
              //这里将页面的counter多次用到的增加或减少的响应直接写到绑定的事件中去了,我们要做的就是根据result进行判断返回对应的字符是大了还是小了,但是在Vue的值data中不能写三目运算符,所以我们再函数里写,显示result的地方就直接调用即可
             //因为Vue不知道secondCounter的变化是否会影响result()函数所以它重复执行了result()函数,但result根本没右用到secondCounter,这就会造成不必要的运算
+            //Vue实例的counter属性很好的解决了这个问题,它将属性和方法结合起来,让属性也能进行响应判断,它会监听代码中的值是否发生变化,发生变化才执行
+            //这就是我们处理依赖属性是怎么来使用comput属性的方法
          })
      </script>
  </body>
