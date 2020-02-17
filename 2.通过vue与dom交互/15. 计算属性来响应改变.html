@@ -38,10 +38,15 @@
                     return this.counter > 5?'Greater 5':'Smaller than 5'
                 }
              },
-             //观察属性
+             //观察属性,不要要在模板设置,它是自动检测的
+            //  两秒重置counter属性的值
+            //watch适用一度代码,而没有返回值的那种
              watch:{
                  counter:function(value){   //一旦counter的值改变就会触发该函数,并将改变的值通过value值传递
-                    
+                    var vm = this;  //存放vue的实例,不能放在回调函数里面
+                    setTimeout(function(){
+                       vm.counter= 0;     
+                    },2000)
                  }
              },
              methods:{
