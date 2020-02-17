@@ -1,0 +1,39 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-17 12:09:01
+ * @LastEditTime: 2020-02-17 12:09:32
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\13.在模板中编写js代码.html
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ </head>
+ <body>
+     <div id="app">
+         <!-- 表达式 -->
+         <button v-on:click="counter++">{{counter*2}}</button>
+         <!-- 语句 -->
+         <button v-on:click="counter+=2">{{counter}}</button>
+         <!--  三目运算符 -->
+         <button v-on:click="counter++">{{counter*2>10?'Greate than 10':'Smaller than 10'}}</button>
+     </div>
+     <script>
+         new Vue({
+             el:"#app",
+             data:{
+                 counter:0,
+                 x:0,
+                 y:0
+             },
+         })
+     </script>
+ </body>
+ </html>
