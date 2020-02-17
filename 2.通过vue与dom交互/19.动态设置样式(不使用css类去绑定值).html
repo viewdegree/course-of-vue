@@ -1,0 +1,55 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-17 18:29:05
+ * @LastEditTime: 2020-02-17 18:29:13
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\19.动态设置样式(不使用css类去绑定值).html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+        .demo{
+            height: 100px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 注意这里是绑定样式:style不是绑定类名:class -->
+        <!-- 设置的值和css类似不过必须不能有破折号,用单字符括起来,或者用驼峰写法 -->
+            <div class="demo" :style="{'background-color':color,'width':width+'px' }"></div>
+            <div class="demo" :style="{backgroundColor:color,width:width+'px'}"></div>
+            <!-- 通过计算属性设置 -->
+            <div class="demo" :style="myStyle"></div>
+            <p>请输入你想要的颜色</p>
+            <input type="text" v-model="color">
+            <input type="text" v-model="width">
+        </div> 
+        <script>
+            new Vue({
+                el: '#app',
+                data:{
+                    color: "gray",  //设置为默认颜色
+                    width: 100 //设置默认的宽度
+                },
+                // 计算属性
+                computed:{
+                    myStyle: function(){
+                        return {
+                            backgroundColor :this.color,
+                            width: this.width+'px'
+                        }
+                    }
+                }
+            })
+        </script>
+</body>
+</html>
