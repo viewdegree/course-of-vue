@@ -1,0 +1,33 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-17 13:33:42
+ * @LastEditTime: 2020-02-17 13:33:45
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\14.使用双向绑定.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+</head>
+<body>
+    <!-- 在之前,我们写过传参是通过调用方法,传入事件对象,通过修改data的值来实现,这是与间接修改Vue的值,如果我们想让表单的值直接与Vue的数据建立联系,那么可以采用新的方法就是绑定v-model,v-model就是将v-on监听事件和插值同时实现,是语法糖-->
+    <div id="app">
+        <input type="text" v-model="name">
+        <p>{{name}}</p>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                name:'Max'
+            }
+        });
+    </script>
+</body>
+</html>
