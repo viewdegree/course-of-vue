@@ -40,9 +40,10 @@
         <div class="demo" @click="attachRed=!attachRed" :class="divClasses"></div>  
         <!-- 如果我们事先不知道类名,比如由input输入的值作为第2个盒子的类名,那么应该这样写 -->
         <!-- 但是我们应该提前设置好相应的类名不然就算设置了类名也没哟效果-->
-        <!-- 注意如果只写类名,不写bool值是默认为true的 -->
+        <!-- 注意如果只写类名,不写bool值是默认为true的 , 经过测试只写类名是不显示的,只有是Vue的值才显示,所以一般都写成对象形式-->
         <div class="demo" :class="color"></div>
-        <div class="demo" :class="{red:attachRed}"></div>
+        <!--   设置多重类名,有用户输出的,也有预先设置的类名对象 -->
+        <div class="demo" :class="[color,{red:!attachRed}]"></div>
         <p>请输入你想要的颜色</p>
         <input type="text" v-model="color">
     </div> 
