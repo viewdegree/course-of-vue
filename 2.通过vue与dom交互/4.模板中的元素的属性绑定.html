@@ -18,7 +18,9 @@
  <body>
      <div id="app">
          <!-- 这是一种错误的写法,模板只能在html元素中可以输出的在字符串的位置,不能像ejs那样任意在任何地方上去写,这样并不能解析在渲染之后还是{{link}} -->
-         <p>{{sayHello()}}- <a href="{{link}}">Google</a>  </p>
+         <!-- v-bind:后边必须绑定html元素的属性,这是为了告诉Vue这不再是一个普通的html属性了,是可以传入data数据的属性 -->
+         <!-- 注意这里不需要再写模板语法,因为引号内部已经在Vue模板语言作用域内 -->
+         <p>{{sayHello()}}- <a v-bind:href="link">Google</a>  </p>
      </div>
      <script>
          new Vue({
