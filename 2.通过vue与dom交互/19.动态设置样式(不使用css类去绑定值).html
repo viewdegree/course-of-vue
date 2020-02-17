@@ -29,6 +29,10 @@
             <div class="demo" :style="{backgroundColor:color,width:width+'px'}"></div>
             <!-- 通过计算属性设置 -->
             <div class="demo" :style="myStyle"></div>
+            <!-- 与绑定css的语法类似,当混合写法用数组 -->
+            <div class="demo" :style="[myStyle,{height:height+'px'}]"></div>
+            <!-- 将元素设置为正方形,无论宽高如何改变,高度和宽度一致 -->
+            <div class="demo" :style="[myStyle,{height:width+'px'}]"></div>
             <p>请输入你想要的颜色</p>
             <input type="text" v-model="color">
             <input type="text" v-model="width">
@@ -38,7 +42,8 @@
                 el: '#app',
                 data:{
                     color: "gray",  //设置为默认颜色
-                    width: 100 //设置默认的宽度
+                    width: 100, //设置默认的宽度
+                    height: 50
                 },
                 // 计算属性
                 computed:{
