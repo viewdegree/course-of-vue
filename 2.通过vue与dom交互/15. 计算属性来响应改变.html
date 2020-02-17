@@ -1,0 +1,48 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-17 14:25:01
+ * @LastEditTime: 2020-02-17 14:26:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\15. 计算属性来响应改变.html
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ </head>
+ <body>
+     <div id="app">
+         <button v-on:click="increase">Increase</button>
+         <button v-on:click="decrease">Decrease</button>
+         <p>Counter:{{counter}}</p>
+         <p>Result:{{result}}</p>
+     </div>
+     <script>
+         new Vue({
+             el:"#app",
+             data:{
+                 counter:0,
+                 result: ''
+             },
+             methods:{
+                 increase:function(){
+                     this.counter++;
+                     this.result = this.counter>5?"Greate 5":"Smaller 5"
+                 },
+                 decrease:function(){
+                     this.counter--;
+                     this.result = this.counter>5?"Greate 5":"Smaller 5"
+                 }
+             }
+             //如果变量counter要在很多地方用到且存在大量依赖counter属性的话,就很难维护,管理全部的increase函数或者有其他给counter赋值的地方,需要记住所有的counter就会很麻烦
+
+         })
+     </script>
+ </body>
+ </html>
