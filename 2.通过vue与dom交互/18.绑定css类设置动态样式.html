@@ -33,10 +33,10 @@
     </style>
 </head>
 <body>
-    <!-- 当我们说绑定某个属性的时候就需要特别注意,它是要修改dom的属性,绑定为了修改 :class就是v-bind:class,这里的赋值是一个字符串的对象形式的键值对,前面是样式后面是值,值可以是Vue的值也可以是自己定义的,不过既然你自己定义值那为什么不写到Vue中去呢? -->
+    <!-- 当我们说绑定某个属性的时候就需要特别注意,它是要修改dom的属性,绑定为了修改 :class就是v-bind:class,这里的赋值是一个字符串的对象形式的键值对,前面是已经设置的类名后面是布尔值,值可以是Vue的值也可以是自己定义的,不过既然你自己定义值那为什么不写到Vue中去呢?也就是当后面的布尔值为true的时候前面的类名就设置完成 -->
     <div id="app">
         <!-- 如果没有破折号那么在:class中是不用写双引号的 -->
-        <div class="demo" @click="attachRed=!attachRed" :class="{red:attachRed}"></div>
+        <div class="demo" @click="attachRed=!attachRed" :class="{red:attachRed,blue: !attachRed}"></div>
         <div class="demo" :class="{red:attachRed}"></div>
         <div class="demo" :class="{red:attachRed}"></div>
     </div>
