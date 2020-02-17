@@ -1,0 +1,46 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-17 10:36:34
+ * @LastEditTime: 2020-02-17 10:39:32
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\10.用事件修饰符号来修饰事件.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ </head>
+ <body>
+     <div id="app">
+         <p v-on:mousemove="updateCoordinate">
+             Coordinates: {{x}}/{{y}}
+            - <span v-on:mousemove.stop style="background-color: blueviolet">DEAD STOP</span>
+        </p>
+        <!-- 输入立即弹窗 -->
+        <input type="text" v-on:keyup="alertMe">
+        <!-- 输入后按下enter键才弹窗 -->
+        <input type="text" v-on:keyup.enter="alertMe">
+        <!-- 输入后按下enter或者空格键才弹窗 -->
+        <input type="text" v-on:keyup.enter.space="alertMe">
+    </div>
+     <script>
+         new Vue({
+             el:"#app",
+             methods:{
+                 updateCoordinate:function(event){
+                    this.x = event.clientX;
+                    this.y = event.clientY; //client是事件对象自带的属性与vue无关
+                },
+                alertMe: function(){
+                    alert("Alert!");
+                }
+             }
+         })
+     </script>
+ </body>
+ </html>
