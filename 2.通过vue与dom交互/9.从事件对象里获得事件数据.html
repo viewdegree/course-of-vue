@@ -1,0 +1,45 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-17 09:50:46
+ * @LastEditTime: 2020-02-17 09:51:01
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\8.监听事件.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ </head>
+ <body>
+     <div id="app">
+         <button v-on:click="increase">{{counter}}</button>
+         <p v-on:mousemove="updateCoordinate">Coordinates: {{x}}/{{y}}</p>
+     </div>
+     <script>
+         new Vue({
+             el:"#app",
+             data:{
+                 counter:0,
+                 x:0,
+                 y:0
+             },
+             methods:{
+                 increase:function(event){
+                     console.log(event);
+                     this.counter++;
+                 },
+                 //触发的任意操作的事件对象,event会作为参数传递绑定的methods对象的每一个方法
+                 updateCoordinate:function(event){
+                    this.x = event.clientX;
+                    this.y = event.clientY; //client是事件对象自带的属性与vue无关
+                }
+             }
+         })
+     </script>
+ </body>
+ </html>
