@@ -1,0 +1,167 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-18 00:13:35
+ * @LastEditTime: 2020-02-18 08:34:24
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\20.作业4_样式设置.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+        #effect {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+        }
+        .highlight {
+            background-color: red;
+            width: 200px !important;
+        }
+        .shrink {
+            background-color: gray;
+            width: 50px !important;
+        }
+        .green{
+            background-color: green;
+        }
+        .black{
+            background-color: #000;
+        }
+        .blue{
+            background-color: #00f;
+        }
+        .size100{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            font-size: 12px;
+        }
+        .size200{
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            font-size: 12px;
+        }
+        .circle{
+            border-radius: 50%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="exercise">
+        <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
+        <div>
+            <button @click="startEffect=!startEffect">Start Effect</button>
+            <div id="effect"  :class="changeEffect"></div>
+        </div>
+        <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+        <div :class="[colorClass,{size100:true}]">I got 2 class :)</div>
+        <div :class="[colorClass,size]">I got 3 class :)</div>
+        <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+        <div>
+            <input type="text" v-model="color2Class">
+            <div class="size100" :class="color2Class"></div>
+        </div>
+        <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+        <div>
+            <input type="text" placeholder="请输入类名" v-model="setClass">
+            <input type="text" placeholder="请输入布尔值" v-model="setOnOff">
+            <div class="size200" :class="setClassName">
+                    setClass:{{setClass}} onOff:{{setOnOff}}
+            </div>
+        </div>
+        <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+        <div>
+            <input type="text" placeholder="请输入css样式属性" v-model="setStyle">
+            <input type="text" placeholder="请输入css样式值" v-model="setValue">
+            <div class="size200" :style="setStyleName">
+                    setClass:{{setStyle}} onOff:{{setValue}}
+            </div>
+        </div> 
+        <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+        <div>
+            <!-- <button v-on:click="startProgress">Start Progress</button> -->
+            <div></div>
+        </div>
+     </div>
+</body>
+<script>
+    new Vue({
+        el: '#exercise',
+        data: {
+            startEffect: false,
+            //mark是切换闪烁的标记
+            mark: true,
+            //是记录定时器的id,方便以后删除
+            timer:'',
+            colorClass: "green",
+            color2Class: "black",
+            setClass:"blue",
+            setOnOff:'true',
+            setStyle:'backgroundColor' ,
+            setValue:'red'
+        },
+        watch:{
+            startEffect: function(val){
+                var vm = this;  //存放vue的实例,不能放在回调函数里面
+                if(val===true){
+                    this.timer = setInterval(function(){
+                        vm.mark = !vm.mark;
+                    },2000)
+                }else{
+                    clearInterval(this.timer);
+                }
+            }
+        },
+        computed:{
+            changeEffect:function(){
+                if(this.mark){
+                    return {
+                        highlight: true,
+                        shrink: false
+                    }
+                }else{
+                    return {
+                        highlight: false,
+                        shrink: true
+                    }
+                }
+            },
+            size:function(){
+                return {
+                    size100:true,
+                    circle:true
+                }
+            },
+            setClassName:function(){
+                var classObject = {};
+                if(this.setOnOff==='true'){
+                    classObject[this.setClass]=true;
+                }else{
+                    classObject[this.setClass]=false;
+                }
+                return classObject;
+            },
+            setStyleName:function(){
+                var styleObject = {};
+                styleObject[this.setStyle]=this.setValue;
+                return styleObject;
+            }
+        },
+        methods: {
+        }
+    });
+</script>
+</html>
+
+
+
+  
