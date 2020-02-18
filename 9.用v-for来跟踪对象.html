@@ -1,0 +1,52 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-18 14:03:53
+ * @LastEditTime: 2020-02-18 15:19:41
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\6.获取当前的下标.html
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+     <div id="app">
+         <!-- 一遍数组只有指针和头结点,对象也一样,发生改变的时候,头结点和指针都没有发生所能变化,所以Vue不知道一个新增的数组有什么变化,必须让他用邦迪key去记录对应的值才能知道 -->
+         <!-- 一般来说用v-for遍历数组是没有问题的,但是当在遍历的时候你对遍历的数据源做了修改,引起了Vue要更新其中的一条数据 -->
+         <!-- Vue对push做了代理,通常的push是不会对原数组修改的但是这里修改了原数组 -->
+         <!-- 如果要修改列表中的某个数据,当数组中某个位置的值有改变,Vue会通过数据的位置来更新数组,比如你想通过v-bind方法去修改第二个元素的值列表的第二个元素就会被改变,它并没有跟踪这个要修改的元素,只是简单地更新第二个位置元素的位置,如果你不想让Vue按位查找,而是按值查找,你需要用v-bind的语法或者缩写:key在传入唯一的key,这样Vue就会按key值查找,如果你的对象的属性是唯一的,那么就把你对象的属性当做key,数组也是一样的如果你把key设置为当前索引,就相当于按位查找,但是每一次渲染列表的时候i都会刷新,key也将i保留下来,所以不存在重复的问题,这是一个小技巧,但是要想本质上的安全,,就是真正的按值查找,那么就把如果你把key设置当前元素,(这里有个前提就是数据源中每个子项的值不少重复的)每次渲染就key就会记录,到之后修改的时候就会按值查找,准确的找的那个需要修改的时,并完成动态渲染 -->
+         <!-- 普通的按位置查找,那是没有记录新增的值 -->
+         <ul>
+            <li v-for="(item,i) in ingredients">{{item}} ({{ i }})</li>
+        </ul>
+        <!-- 按位查找,记录新增的位置 -->
+        <ul>
+            <li v-for="(item,i) in ingredients" :key="i">{{item}} ({{ i }})</li>
+        </ul>
+        <!-- 按值查找,记录每个子项的值 -->
+        <ul>
+            <li v-for="(item,i) in ingredients" :key="item">{{item}} ({{ i }})</li>
+        </ul>
+        <button @click="ingredients.push('spices')">Add New</button>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                ingredients: ['meat','fruit','cookies'],
+                persons:[
+                    {name:'Max',age:'27',color:'red'},
+                    {name:'Anna',age:'unknown',color:'blue'}
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
