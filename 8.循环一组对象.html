@@ -1,0 +1,30 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-18 14:03:53
+ * @LastEditTime: 2020-02-18 14:37:38
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\6.获取当前的下标.html
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+     <div id="app">
+         <!-- Vue只要数据源是数字就可以输出从1到10的一组数字,这样就不用在js里写for语句了,是语法糖 -->
+        <span v-for="n in 10">{{ n }}<br/></span>
+     </div>
+     <script>
+         new Vue({
+             el:"#app"
+         })
+     </script>
+ </body>
+ </html>
