@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-18 10:30:51
- * @LastEditTime: 2020-02-18 11:24:14
+ * @LastEditTime: 2020-02-18 12:16:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\vue.js终极开发教程\2.通过vue与dom交互\21.作业4_样式max老师的改进.html
@@ -142,13 +142,15 @@
                 },1000)
             },
             startProgress:function(){
-                console.log("1");
                 var vm = this; 
                 var width = 0;
-                setInterval(function(){
+                var interval = setInterval(function(){
                     width = width+10;
                     vm.progressBar.width = width+'px';
-                },500)
+                    if(width>=100){
+                        clearInterval(interval);
+                    }
+                },100)
             }
         }
     });
