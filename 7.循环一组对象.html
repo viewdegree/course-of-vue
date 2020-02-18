@@ -1,0 +1,62 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-18 14:14:12
+ * @LastEditTime: 2020-02-18 14:28:48
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\7.循环一组对象.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+     <div id="app">
+         <!-- 循环对象,然后读取对象属性的写法 -->
+         <ul>
+            <li v-for="item in persons">{{item.name}}-{{item.age}}-{{item.color}}</li>
+         </ul>
+         <!-- 循环对象,并循环对象里每个键值,注意这里没有属性,我们要的输出的是属性的值,而不是属性,按照以下写法我们也省去了些属性的操作 -->
+         <ul>
+            <li v-for="item in persons">
+                <span v-for="value in item">
+                    {{value}}
+                </span>
+            </li>
+        </ul>
+        <!-- 双重的循环指令写法,输出属性与值  -->
+        <ul>
+            <li v-for="item in persons">
+                <span v-for="(value,key) in item">
+                    {{key}}:{{value}}
+                </span>
+            </li>
+        </ul>
+        <!-- 双重的循环指令写法,输出属性与值还有当前索引  -->
+        <ul>
+            <li v-for="item in persons">
+                <span v-for="(value,key,index) in item">
+                    {{key}}:{{value}}({{index}})
+                </span>
+            </li>
+        </ul>
+     </div>
+     <script>
+         new Vue({
+             el:"#app",
+             data:{
+                 ingredients: ['meat','fruit','cookies'],
+                 persons:[
+                     {name:'Max',age:'27',color:'red'},
+                     {name:'Anna',age:'unknown',color:'blue'}
+                 ]
+             }
+         })
+     </script>
+ </body>
+ </html>
