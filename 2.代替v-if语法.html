@@ -1,0 +1,44 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-18 13:05:11
+ * @LastEditTime: 2020-02-18 13:16:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\2.替代v-if语法.html
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+     <div id="app">
+         <!-- v-if只能用于一个元素整体,但是我们想控制两个元素,而且是两个元素是兄弟的关系,不存在父子的嵌套,那么为了避免重复的在每条元素中都加上v-if语句那么我们就需要引入一个html的新标签template -->
+         <!-- template标签如果其没有子元素的,在dom是不渲染的,就算里面有子元素,也只是显示子元素,不显示template,tempalte不影响层级,所以很适合将多个元素放在一个template标签中也就是一个模块,在template的标签中加上v-if语句来控制其整体显示,就解决了这样的问题 -->
+         <p v-if="show">You can see me!</p>
+         <p v-else>Now You can see me!</p>
+         <template v-if="show">
+             <p>我是老大</p>
+             <p>我是老二</p>
+             <p>我是老三</p>
+             <p>我们兄弟必须同时在,同时不再</p>
+         </template>
+         <p>Do you can see me?</p>
+         <button @click="show=!show">switch</button>
+     </div>
+     <script>
+         new Vue({
+             el:"#app",
+             data:{
+                 show:true
+             }
+         })
+     
+     </script>
+ </body>
+ </html>
