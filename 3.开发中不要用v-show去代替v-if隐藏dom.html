@@ -1,0 +1,36 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-18 13:38:28
+ * @LastEditTime: 2020-02-18 13:44:07
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\3.开发中不要用v-show去代替v-if隐藏dom.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+     <div id="app">
+         <!-- v-show是与v-if的用法相同,效果也类似,但是它的实现原理是将dom元素加上css样式display:none去隐藏掉,而不是像v-if将dom重页面删除,我们知道一个页面dom越少性能越好,所以少用v-show,但有些情况下可以能会用到-->
+         <p v-if="show">You can see me!</p>
+         <p v-else>Now You can see me!</p>
+         <p v-show="show">Now You can see me!</p>
+         <p>Do you can see me?</p>
+         <button @click="show=!show">switch</button>
+     </div>
+     <script>
+         new Vue({
+             el:"#app",
+             data:{
+                 show:true
+             }
+         })
+     </script>
+ </body>
+ </html>
