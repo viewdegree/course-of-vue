@@ -1,0 +1,39 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-18 13:46:11
+ * @LastEditTime: 2020-02-18 13:55:49
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\4.用v-for来渲染列表.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+</head>
+<body>
+    <div id="app">
+        <!--ingredients是数据源, item是Vue自动定义的ingredients数据源的子项,item可以像使用Vue值一样使用它,可以绑定可以输出可以做js语句等等 -->
+        <!-- 被v-for控制的元素会自动生成许多相同标签,标签的数量根据数据源的数量决定 -->
+        <ul>
+            <li v-for="item in ingredients">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                ingredients: ['meat','fruit','cookies'],
+                persons:[
+                    {name:'Max',age:'27',color:'red'},
+                    {name:'Anna',age:'unknown',color:'blue'}
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
