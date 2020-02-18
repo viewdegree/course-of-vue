@@ -1,0 +1,40 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-18 12:49:44
+ * @LastEditTime: 2020-02-18 13:03:51
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\1.用v-if做条件渲染.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 如果v-if为false则该元素是直接从dom中去除了,而不是隐藏,而且看代码是显示\<\!-- --\> 的语句 --> 
+        <!-- 如果有两个相反条件,那么我们可以用v-else去替代v-if语句,而且v-else还不用写条件 -->
+        <!-- v-else会与最近的v-if关联 -->
+        <!-- v-if控制的是整个元素,如果v-if="false"不仅本身会从dom树中删除,器子元素也删除 -->
+        <p v-if="show">You can see me!</p>
+        <!-- <p v-if="!show">Now You can see me!</p> -->
+        <p v-else>Now You can see me!</p>
+        <p>Do you can see me?</p>
+        <button @click="show=!show">switch</button>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                show:true
+            }
+        })
+    
+    </script>
+</body>
+</html>
