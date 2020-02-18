@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-18 14:14:12
- * @LastEditTime: 2020-02-18 14:28:48
+ * @LastEditTime: 2020-02-18 16:18:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\vue.js终极开发教程\7.循环一组对象.html
@@ -17,11 +17,17 @@
  </head>
  <body>
      <div id="app">
-         <!-- 循环对象,然后读取对象属性的写法 -->
+        <!-- 循环单个对象 -->
+        <ul>
+            <li v-for="(value,key,index) in myObject">
+                {{index}}  {{value}} : {{key}}
+            </li>
+        </ul>
+         <!-- 循环对象数组,然后读取对象属性的写法 -->
          <ul>
             <li v-for="item in persons">{{item.name}}-{{item.age}}-{{item.color}}</li>
          </ul>
-         <!-- 循环对象,并循环对象里每个键值,注意这里没有属性,我们要的输出的是属性的值,而不是属性,按照以下写法我们也省去了些属性的操作 -->
+         <!-- 循环对象数组,并循环数组里每个对象,再在第二次遍历的时候才遍历对象里的键值,按照以下写法我们也省去了些属性的操作 -->
          <ul>
             <li v-for="item in persons">
                 <span v-for="value in item">
@@ -54,7 +60,12 @@
                  persons:[
                      {name:'Max',age:'27',color:'red'},
                      {name:'Anna',age:'unknown',color:'blue'}
-                 ]
+                 ],
+                 myObject: {
+                    title: 'Lord of the Rings',
+                    author: 'J.R.R. Tolkiens',
+                    books: '3'
+                }
              }
          })
      </script>
