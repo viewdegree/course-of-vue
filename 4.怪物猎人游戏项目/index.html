@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-18 17:32:46
- * @LastEditTime: 2020-02-18 21:17:11
+ * @LastEditTime: 2020-02-19 00:33:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\vue.js终极开发教程\4.怪物猎人游戏项目\index.html
@@ -16,6 +16,14 @@
 </head>
 <body>
     <div id="app">
+        <section class="overlay" v-if="showToast">
+            <div class="toast">
+                <p v-if="result">恭喜您赢了, 再来一局?</p>
+                <p v-else>挑战失败, 再来一局?</p>
+                <button @click="continueGame()">ok</button>
+                <button @click="stopGame()">告辞</button>
+            </div>
+        </section>
         <section class="row">
             <div class="small-6 columns">
                 <h1 class="text-center">YOU</h1>
@@ -36,7 +44,7 @@
         </section>
         <section class="row controls"  v-if="!gameStatus">
             <div class="small-12 columns">
-                <button id="start-game" @click="gameStatus=!gameStatus">START NEW GAME</button>
+                <button id="start-game" @click="starGame()">START NEW GAME</button>
             </div>
         </section>
         <section class="row controls" v-else>
@@ -47,7 +55,7 @@
                 <button id="give-up"  @click="gameStatus=!gameStatus">GIVE UP</button>
             </div>
         </section>
-        <section class="row log">
+        <section class="row log"  v-if="history.length>0">
             <div class="small-12 columns">
                 <ul>
                     <template v-for="arr in history">
@@ -74,22 +82,29 @@
         new Vue({
             el:"#app",
             data:{
+                showToast:false,
                 gameStatus:false,
                 life:{
                     player:100,
                     monster:100,
                 },
-                result:true, //true代表活着
+                result:null, //true代表活着
                 history:[]      //[{"player":num,"monster":num}]}
             },
             methods:{
+                starGame:function(){
+                    var vm = this;
+                    vm.gameStatus=!vm.gameStatus;
+                    vm.history = [];
+                    vm.life.player = 100;
+                    vm.life.monster = 100;
+                },
                 GetRandomNum:function(Min, Max) {
                     var Range = Max - Min;
                     var Rand = Math.random();
                     return(Min + Math.round(Rand * Range));
                 },
                 attack:function(){
-                    if(!this.result)return;
                     var arr = {};
                     var vm = this;
                     var num = vm.$options.methods.GetRandomNum(7, 15);
@@ -101,7 +116,6 @@
                     vm.history.unshift(arr);    //因为考虑到日志更新要放在新记录要在前面,所以采用倒序插入
                 },
                 special_attack:function(){
-                    if(!this.result)return;
                     var arr = {};
                     var vm = this;
                     var num = vm.$options.methods.GetRandomNum(15, 20);
@@ -113,7 +127,6 @@
                     vm.history.unshift(arr);
                 },
                 heal:function(){
-                    if(!this.result)return;
                     var arr = {};
                     var vm = this;
                     vm.life.player += 10;   //当加血的时候为负值
@@ -122,21 +135,39 @@
                     vm.life.player -= num;
                     arr["monster"] = num;
                     vm.history.unshift(arr);
+                },
+                continueGame:function(){
+                    this.showToast = false;
+                    this.starGame();
+                },
+                stopGame:function(){
+                    this.showToast = false;
+                    this.gameStatus = false;
                 }
             },
             computed:{
                 playerlife:function(){
                     var vm = this;
+                    if(vm.life.player<=0){
+                        vm.life.player=0;
+                        vm.result = false;
+                        vm.showToast = true;
+                    }
                     return {
-                        width:vm.life.player+"%",
-                        color: vm.life.player>0?'#fff':'#f00'
+                        width:vm.life.player>0?vm.life.player+"%":"0",
+                        color: vm.life.player>=0?'#fff':'#f00'
                     }
                 },
                 monsterlife:function(){
                     var vm = this;
+                    if(vm.life.monster<=0){
+                        vm.life.monster=0;
+                        vm.result = true;
+                        vm.showToast = true;
+                    }
                     return {
-                        width:vm.life.monster+"%",
-                        color: vm.life.monster>0?'#fff':'#f00'
+                        width:vm.life.monster>0?vm.life.monster+"%":"0",
+                        color: vm.life.monster>=0?'#fff':'#f00'
                     }
                 }
             }
