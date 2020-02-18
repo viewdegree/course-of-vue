@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-18 17:32:46
- * @LastEditTime: 2020-02-18 17:38:40
- * @LastEditors: your name
+ * @LastEditTime: 2020-02-18 19:58:09
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\vue.js终极开发教程\4.怪物猎人游戏项目\index.html
  -->
@@ -15,47 +15,110 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-<div id="app">
-    <section class="row">
-        <div class="small-6 columns">
-            <h1 class="text-center">YOU</h1>
-            <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+    <div id="app">
+        <section class="row">
+            <div class="small-6 columns">
+                <h1 class="text-center">YOU</h1>
+                <div class="healthbar">
+                    <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="playerlife">
+                        {{life.player}}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="small-6 columns">
-            <h1 class="text-center">MONSTER</h1>
-            <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+            <div class="small-6 columns">
+                <h1 class="text-center">MONSTER</h1>
+                <div class="healthbar">
+                    <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="monsterlife">
+                            {{life.monster}}
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="row controls">
-        <div class="small-12 columns">
-            <button id="start-game">START NEW GAME</button>
-        </div>
-    </section>
-    <section class="row controls">
-        <div class="small-12 columns">
-            <button id="attack">ATTACK</button>
-            <button id="special-attack">SPECIAL ATTACK</button>
-            <button id="heal">HEAL</button>
-            <button id="give-up">GIVE UP</button>
-        </div>
-    </section>
-    <section class="row log">
-        <div class="small-12 columns">
-            <ul>
-                <li>
-
-                </li>
-            </ul>
-        </div>
-    </section>
-</div>
+        </section>
+        <section class="row controls"  v-if="!gameStatus">
+            <div class="small-12 columns">
+                <button id="start-game" @click="gameStatus=!gameStatus">START NEW GAME</button>
+            </div>
+        </section>
+        <section class="row controls" v-else>
+            <div class="small-12 columns">
+                <button id="attack" @click="attack()">ATTACK</button>
+                <button id="special-attack" @click="special_attack()">SPECIAL ATTACK</button>
+                <button id="heal" @click="heal()">HEAL</button>
+                <button id="give-up"  @click="gameStatus=!gameStatus">GIVE UP</button>
+            </div>
+        </section>
+        <section class="row log">
+            <div class="small-12 columns">
+                <ul>
+                    <li> 
+                        
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                gameStatus:false,
+                life:{
+                    player:100,
+                    monster:100,
+                },
+                result:true, //true代表活着
+                history:{
+                    player:[],
+                    monster:[]
+                }
+            },
+            methods:{
+                GetRandomNum:function(Min, Max) {
+                        var Range = Max - Min;
+                        var Rand = Math.random();
+                        return(Min + Math.round(Rand * Range));
+                },
+                attack:function(){
+                    if(!this.result)return;
+                    var vm = this;
+                    var num = vm.$options.methods.GetRandomNum(7, 15);
+                    vm.life.monster -= num;
+                    num = vm.$options.methods.GetRandomNum(5, 10);
+                    vm.life.player -= num;
+                },
+                special_attack:function(){
+                    if(!this.result)return;
+                    var vm = this;
+                    var num = vm.$options.methods.GetRandomNum(15, 20);
+                    vm.life.monster -= num;
+                    num = vm.$options.methods.GetRandomNum(7, 13);
+                    vm.life.player -= num;
+                },
+                heal:function(){
+                    if(!this.result)return;
+                    var vm = this;
+                    vm.life.player += 10;
+                    var num = vm.$options.methods.GetRandomNum(7, 13);
+                    vm.life.player -= num;
+                }
+            },
+            computed:{
+                playerlife:function(){
+                    var vm = this;
+                    return {
+                        width:vm.life.player+"%",
+                        color: vm.life.player>0?'#fff':'#f00'
+                    }
+                },
+                monsterlife:function(){
+                    var vm = this;
+                    return {
+                        width:vm.life.monster+"%",
+                        color: vm.life.monster>0?'#fff':'#f00'
+                    }
+                }
+            }
+        })
+    </script>
 </body>
 </html>
