@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-18 15:32:22
- * @LastEditTime: 2020-02-18 16:10:27
+ * @LastEditTime: 2020-02-18 16:25:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\vue.js终极开发教程\10.作业_条件与列表.html
@@ -40,20 +40,17 @@
         </ul>
         <!-- 4) Print the following object (only the values) and also create a nested loop for the array: {name: 'TESTOBJECT', data: [1.67, 1.33, 0.98, 2.21]} (hint: use v-for and v-if to achieve this) -->
         <ul>
-            <template v-for="(value,key,index) in testData">
-                <li v-if="value instanceof Array">
-                    <h3>data</h3>
-                    <ul>
-                        <li v-for="(item,index2) in value">
-                            ({{index2}})  {{item}}
-                        </li>
-                    </ul>
-                </li>  
-                <li v-else>
-                    {{key}} {{value}}
-                </li>   
-            </template>
-           
+            <li v-for="(value,key,index) in testData">
+                <template v-if="Array.isArray(value)">
+                        <h3>Data</h3>
+                        <div v-for="(item,index2) in value">
+                                ({{index2}})  {{item}}
+                        </div>
+                </template>
+                <template v-else>
+                        {{key}} {{value}}
+                </template>
+            </li>
         </ul>
     </div>
     <script>
