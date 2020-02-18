@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-18 17:32:46
- * @LastEditTime: 2020-02-18 19:58:09
+ * @LastEditTime: 2020-02-18 21:17:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\vue.js终极开发教程\4.怪物猎人游戏项目\index.html
@@ -50,9 +50,22 @@
         <section class="row log">
             <div class="small-12 columns">
                 <ul>
-                    <li> 
-                        
-                    </li>
+                    <template v-for="arr in history">
+                        <template v-for="(value,key) in arr">
+                            <!-- 注意这里template标签千万不能写成li,这样会自动输出两次,因为下的v-if不显示,那么v-else会自动寻到最近的则此时<li v-if="key === 'player'">就是最近的会自动输出两次 -->
+                            <template v-if="key === 'player'">
+                                <li class="player-turn" v-if="value > 0">
+                                    PLAYER HITS MONSTER FOR {{value}}
+                                </li>
+                                <li class="player-turn" v-else>
+                                    PLAYER HEALS HIMSELF FOR {{-value}}
+                                </li>
+                            </template>
+                            <li class="monster-turn" v-if="key === 'monster'">
+                                MONSTER  HITS PLAYER FOR {{value}}
+                            </li>
+                        </template>
+                    </template>
                 </ul>
             </div>
         </section>
@@ -67,39 +80,48 @@
                     monster:100,
                 },
                 result:true, //true代表活着
-                history:{
-                    player:[],
-                    monster:[]
-                }
+                history:[]      //[{"player":num,"monster":num}]}
             },
             methods:{
                 GetRandomNum:function(Min, Max) {
-                        var Range = Max - Min;
-                        var Rand = Math.random();
-                        return(Min + Math.round(Rand * Range));
+                    var Range = Max - Min;
+                    var Rand = Math.random();
+                    return(Min + Math.round(Rand * Range));
                 },
                 attack:function(){
                     if(!this.result)return;
+                    var arr = {};
                     var vm = this;
                     var num = vm.$options.methods.GetRandomNum(7, 15);
                     vm.life.monster -= num;
+                    arr["player"] = num;
                     num = vm.$options.methods.GetRandomNum(5, 10);
                     vm.life.player -= num;
+                    arr["monster"] = num;
+                    vm.history.unshift(arr);    //因为考虑到日志更新要放在新记录要在前面,所以采用倒序插入
                 },
                 special_attack:function(){
                     if(!this.result)return;
+                    var arr = {};
                     var vm = this;
                     var num = vm.$options.methods.GetRandomNum(15, 20);
                     vm.life.monster -= num;
+                    arr["player"] = num;
                     num = vm.$options.methods.GetRandomNum(7, 13);
                     vm.life.player -= num;
+                    arr["monster"] = num;
+                    vm.history.unshift(arr);
                 },
                 heal:function(){
                     if(!this.result)return;
+                    var arr = {};
                     var vm = this;
-                    vm.life.player += 10;
+                    vm.life.player += 10;   //当加血的时候为负值
+                    arr["player"] = -10;
                     var num = vm.$options.methods.GetRandomNum(7, 13);
                     vm.life.player -= num;
+                    arr["monster"] = num;
+                    vm.history.unshift(arr);
                 }
             },
             computed:{
