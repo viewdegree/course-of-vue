@@ -1,0 +1,41 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-18 13:56:50
+ * @LastEditTime: 2020-02-18 14:01:29
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue\vue.js终极开发教程\5.获取当前的下标.html
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+     <div id="app">
+         <!--ingredients是数据源, item是Vue自动定义的ingredients数据源的子项,item可以像使用Vue值一样使用它,可以绑定可以输出可以做js语句等等 -->
+         <!-- 被v-for控制的元素会自动生成许多相同标签,标签的数量根据数据源的数量决定 -->
+         <!-- 给v-for语句再加一个当前索引的变量,这个i变量也是Vue自动生成的不过要事先声明好v-for的格式,在in的前面 加上(当前元素的变量名,当前索引的变量名)-->
+         <ul>
+             <li v-for="(item,i) in ingredients">{{item}} ({{ i }})</li>
+         </ul>
+     </div>
+     <script>
+         new Vue({
+             el:"#app",
+             data:{
+                 ingredients: ['meat','fruit','cookies'],
+                 persons:[
+                     {name:'Max',age:'27',color:'red'},
+                     {name:'Anna',age:'unknown',color:'blue'}
+                 ]
+             }
+         })
+     </script>
+ </body>
+ </html>
