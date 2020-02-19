@@ -1,0 +1,42 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-19 17:37:34
+ * @LastEditTime: 2020-02-19 17:46:40
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue.js终极开发教程\07.组件的介绍\vue-cli\demo\01.组件的介绍.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+    <div id="app">
+        <my-cmp></my-cmp>
+        <hr>
+        <my-cmp></my-cmp>
+    </div>
+     <script>
+         Vue.component('my-cmp',{
+             //因为组件是继承Vue实例.如果把data写成对象形式会与其他Vue实例产生冲突,
+             //所以要写成函数的形式,限定作用域
+             //Vue实例里面可以将data直接写对象形式,不会产生冲突
+             //但是组件不能写成对象形式
+             data:function (){
+                 return {
+                     status: 'Critical'
+                 }
+             },
+             template:'<p>Server Status: {{ status }}</p>'
+         })
+         new Vue({
+             el:'#app'
+         })
+     </script>
+ </body>
+ </html>
