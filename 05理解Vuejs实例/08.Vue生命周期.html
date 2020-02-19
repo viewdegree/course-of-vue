@@ -1,0 +1,67 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-19 14:40:17
+ * @LastEditTime: 2020-02-19 15:14:03
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \05理解Vuejs实例\08.一些模板的限制.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{title}}</h1>
+        <!-- 点击该按钮触发beforUpdate updated钩子函数 -->
+        <button @click="title='Changed'">Update Title</button>
+        <!-- 点击该按钮触发beforDestroy destroy钩子函数 -->
+        <button @click="title='destroy'">Destroy</button>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                title:'The VueJs Instance'
+            },
+            // 生命周期钩子函数 直接注册在构造函数的根对象上,和methods同级
+            // 前面4个钩子函数会自动触发beforeCreate created beforeMount  mounted
+            // 后面4个钩子函数需要在一定条件下触发beforeUpdate updated beforeDestory destoryed
+            beforeCreate: function(){
+                console.log("beforeCreate()");
+            },
+            created:function(){
+                console.log("created()");
+            },
+            beforeMount:function(){
+                console.log("beforeMount()");
+            },
+            mounted:function(){
+                console.log("mounted()");
+            },  
+            beforeUpdate:function(){
+                console.log("beforeUpdate()");
+            }, 
+            updated:function(){
+                console.log("updated()");
+            }, 
+            beforeDestory:function(){
+                console.log("beforeDestory()");
+            },  
+            destoryed:function(){
+                console.log("destoryed()");
+            },  
+            methods:{
+                destroy: function(){
+                    this.$destroy();
+                }
+            }
+        })
+    </script>
+</body>
+</html>
