@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-19 18:27:19
- * @LastEditTime: 2020-02-19 18:52:42
+ * @LastEditTime: 2020-02-19 19:25:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue.js终极开发教程\07.组件的介绍\vue-cli\src\Home.vue
@@ -10,23 +10,19 @@
  <!-- template标签内不允许有两个或三个或更多并列的元素,所以用div将其框起来 -->
 <template>
   <div>
-      <p>Server Status: {{ status }}</p>
-      <hr>
-      <button @click="changeStatus">Change Status</button>
+    <!-- Home的作用不再是输出这个服务器的状态了,而是循环访问我的所有服务器 -->
+      <app-server-status v-for="(server,index) in 5" :key="index"></app-server-status>
   </div>
 </template>
 <script>
-export default {
-  data:function(){
-    return{
-      status: 'Critical1'
+//important 设置组件变量名 from 组件单文件相对路径
+//组件变量名是自己定义的最好采用原文件名去掉后缀
+    import ServerStatus from './ServerStatus.vue';
+    export default {
+      //定义局部组件
+      components:{
+        'app-server-status': ServerStatus 
+      }
     }
-  },
-  methods:{
-    changeStatus: function(){
-        this.status = 'Normal'
-    }
-  }
-}
 </script>
 
