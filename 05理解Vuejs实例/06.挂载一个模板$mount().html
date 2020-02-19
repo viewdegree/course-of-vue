@@ -1,0 +1,73 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-19 09:44:49
+ * @LastEditTime: 2020-02-19 11:45:16
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \05理解Vuejs实例\03.从一个Vue实例访问另一个Vue实例里的方法.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+     <div id="app1">
+         <h1>{{title}}</h1>
+         <button @click="show">Show Paragraph</button>
+         <p v-if="showParagraph">This is not always visible</p>
+     </div>
+     <div id="app2"></div>
+     <div id="app3"></div>
+     <script>
+         var data = {
+            title: "The VueJS Instance",
+            showParagraph: false
+        }
+         var vm1= new Vue({
+            //  当传入的参数没有el挂载的参数,那么在html模板中是不受vue的控制的,如果不想到传入Vue的参数中定义el挂载元素,可以在之后用vue实例变量.$mount("css选择器")的方法去挂载,
+             data: data,    //将data定义到外部的js对象中
+             methods:{
+                 show:function(){
+                     this.showParagraph = true;
+                     this.updateTitle("The VueJS Instance (Updated)");
+                 },
+                 updateTitle:function(title){
+                     this.title = title;
+                 },
+             },
+            computed:{
+                lowercaseTitle: function(){
+                    return this.title.toLowerCase();
+                }
+            },
+            watch:{
+                title: function(value){
+                    alert("Title changed , new value : " + value);
+                }
+            }
+         })
+         //挂载Vue实例到app1
+         vm1.$mount("#app1")
+         //创建Vue自己的模板,没有挂载到html上
+         var vm2 = new Vue({
+             template:"<h1>hello</h1>"
+         })
+        //  将vue挂载到#app2上,里面的模板template的内容会替代掉#app2
+         vm2.$mount("#app2")
+
+         //为了解决以上问题我们可以先渲染再挂载Vue实例的$el元素
+         var vm3 = new Vue({
+             template:"<h1>hello</h1>"
+         })
+        vm3.$mount();       //$mount()没有参数则是起到渲染的的作用,先渲染成dom,但是不添加到页面中
+        //添加到页面中
+        document.getElementById('app3').appendChild(vm3.$el); 
+        // 这样的效果就和传入参数el一样了        
+     </script>
+ </body>
+ </html>
