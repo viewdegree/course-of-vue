@@ -1,0 +1,80 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-19 09:44:49
+ * @LastEditTime: 2020-02-19 14:39:32
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \05理解Vuejs实例\03.从一个Vue实例访问另一个Vue实例里的方法.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+     <div id="app1">
+         <h1>{{title}}</h1>
+         <button @click="show">Show Paragraph</button>
+         <p v-if="showParagraph">This is not always visible</p>
+         <!-- Vue.component声明的模板必须放到已经被挂载的Dom中,放到外边就无法实现替换的效果了 -->
+         <!-- 而且用 Vue.component声明可以替换多个,不像用直接在Vue中声明模板有但是虽然它是全局的,但只能替换一个的缺点-->
+         <hello></hello>
+         <hello></hello>
+     </div>
+     <div id="app3"></div>
+     <!-- 只替换第一个 -->
+     <hello1></hello1>
+     <hello1></hello1>
+     <!-- 只替换第一个 -->
+     <div class="hello2"></div>
+     <div class="hello2"></div>
+     <script>
+         
+         Vue.component("hello",{
+             template: '<h1>hello3!</h1>'
+         })
+         var data = {
+            title: "The VueJS Instance",
+            showParagraph: false
+        }
+         var vm1= new Vue({
+             el:"#app1",
+            //  当传入的参数没有el挂载的参数,那么在html模板中是不受vue的控制的,如果不想到传入Vue的参数中定义el挂载元素,可以在之后用vue实例变量.$mount("css选择器")的方法去挂载,
+             data: data,    //将data定义到外部的js对象中
+             methods:{
+                 show:function(){
+                     this.showParagraph = true;
+                     this.updateTitle("The VueJS Instance (Updated)");
+                 },
+                 updateTitle:function(title){
+                     this.title = title;
+                 },
+             },
+            computed:{
+                lowercaseTitle: function(){
+                    return this.title.toLowerCase();
+                }
+            },
+            watch:{
+                title: function(value){
+                    alert("Title changed , new value : " + value);
+                }
+            }
+         })
+         //挂载Vue实例到app1
+         var vm3 = new Vue({
+             el: "hello1",
+             template:"<h1>hello1!</h1>"
+         })
+         var vm4 = new Vue({
+             el: ".hello2",
+             template:"<h1>hello2!</h1>"
+         })
+
+     </script>
+ </body>
+ </html>
