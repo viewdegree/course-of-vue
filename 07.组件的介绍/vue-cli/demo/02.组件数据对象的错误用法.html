@@ -1,0 +1,46 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-19 17:50:20
+ * @LastEditTime: 2020-02-19 18:00:06
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue.js终极开发教程\07.组件的介绍\vue-cli\demo\02.组件数据对象的错误用法.html
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+    <div id="app">
+        <my-cmp></my-cmp>
+        <hr>
+        <my-cmp></my-cmp>
+    </div>
+     <script>
+        //  这种将data提取出来会造成组件共有一个data对象,一个组件改变这个data会同时影响其他组件
+         var data = {
+                status: 'Critical'
+             }
+         Vue.component('my-cmp',{
+             
+             data:function (){
+                 return data;
+             },
+             template:'<p>Server Status: {{ status }} (<button @click="changeStatus">Change</button>)</p>',
+             methods:{
+                changeStatus: function(){
+                    this.status = 'Normal'
+                }
+             }
+         })
+         new Vue({
+             el:'#app'
+         })
+     </script>
+ </body>
+ </html>
