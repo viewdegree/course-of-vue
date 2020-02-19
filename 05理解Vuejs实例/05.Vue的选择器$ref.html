@@ -1,0 +1,73 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-19 09:44:49
+ * @LastEditTime: 2020-02-19 11:09:28
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \05理解Vuejs实例\03.从一个Vue实例访问另一个Vue实例里的方法.html
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+     <div id="app1">
+         <h1 ref="heading">{{title}}</h1>
+         <!-- 注册一个引用,就相当于class选择器,这个也是一个选择器后面写上注册名 -->
+         <button @click="show" ref="myButton" id="btn">Show Paragraph</button>
+         <p v-if="showParagraph">This is not always visible</p>
+     </div>
+     <script>
+         var vm1= new Vue({
+             el:"#app1",
+             data:{
+                 title: "The VueJS Instance",
+                 showParagraph: false
+             },
+             methods:{
+                 show:function(){
+                     this.showParagraph = true;
+                     this.updateTitle("The VueJS Instance (Updated)");
+                    //  获取所有的注册对象
+                     console.log(this.$refs);
+                    //  获取注册名为myButton的dom元素
+                     console.log(this.$refs.myButton);
+                    //  判断通过$refs获取的祖册元素和dom是不是同一个,返回true,说明$refs获取的就是dom元素
+                     console.log(this.$refs.myButton===document.getElementById('btn'));
+                    //  修改注册的btn的innnerHTML
+                    this.$refs.myButton.innerText = '我在Vue属性的$refs里面';
+                    vm1.$refs.heading.innerText =this.title;
+                 },
+                 updateTitle:function(title){
+                     this.title = title;
+                 },
+             },
+            computed:{
+                lowercaseTitle: function(){
+                    return this.title.toLowerCase();
+                }
+            },
+            watch:{
+                title: function(value){
+                    alert("Title changed , new value : " + value);
+                }
+            }
+         })
+        // 在外部访问注册组件
+        // vm1.$refs.heading.innerText = "我注册了$refs"
+         //  在js中访问Vue实例
+        setTimeout(function(){
+            vm1.title = "Changed by Timer";
+            vm1.show();
+        },3000)
+        //不能被Vue对象覆盖
+        vm1.$refs.heading.innerText = "我注册了$refs"
+     </script>
+ </body>
+ </html>
