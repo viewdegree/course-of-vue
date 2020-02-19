@@ -1,0 +1,70 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-02-19 18:04:08
+ * @LastEditTime: 2020-02-19 18:15:00
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue.js终极开发教程\07.组件的介绍\vue-cli\demo\03.将组件注册到局部或全局.html
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+     <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+ </head>
+ <body>
+    <div id="app1">
+        <my-cmp></my-cmp>
+        <hr>
+        <!-- <my-cmp1></my-cmp1>  在app1中这个组件是访问不到的 -->
+    </div>
+    <div id="app2">
+        <my-cmp></my-cmp>
+        <hr>
+        <my-cmp1></my-cmp1>
+    </div>
+     <script>
+        //  直接用Vue.component声明则此为全局组件
+         Vue.component('my-cmp',{
+             data:function (){
+                 return {
+                    status: 'Critical'
+                }
+             },
+             template:'<p>Server Status: {{ status }} (<button @click="changeStatus">Change</button>)</p>',
+             methods:{
+                changeStatus: function(){
+                    this.status = 'Normal'
+                }
+             }
+         })
+         //将组件的构造对象存到变量中去,再在Vue实例中components属性填写组件名与构造对象变量组成的对象中,就是局部组件
+         var cmp = {
+             data:function (){
+                 return {
+                    status: 'Critical2'
+                }
+             },
+             template:'<p>Server Status: {{ status }} (<button @click="changeStatus">Change</button>)</p>',
+             methods:{
+                changeStatus: function(){
+                    this.status = 'Normal'
+                }
+             }
+         }
+         new Vue({
+             el:'#app1'
+         })
+         new Vue({
+             el:'#app2',
+             components:{
+                'my-cmp1':cmp
+            }   
+         })
+     </script>
+ </body>
+ </html>
