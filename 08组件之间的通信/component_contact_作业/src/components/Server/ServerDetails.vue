@@ -1,29 +1,36 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 11:42:46
- * @LastEditTime: 2020-02-20 12:54:57
+ * @LastEditTime: 2020-02-20 15:17:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue.js终极开发教程\08组件之间的通信\component_contact_作业\src\components\Server\ServerDetails.vue
  -->
 <template>
     <div class="col-xs-12 col-sm-6">
-        <p v-if="servers===''">Server Details are currently no update</p>
-        <p v-else>Server Details are currently {{servers}}</p>
+        <p v-if="!server">Please select a Server</p>
+        <p v-else>Server #{{ server.id }} selected, Status :{{server.status}}</p>
+        <hr>
+        <button @click="resetStatus">Change to Normal</button>
     </div>
 </template>
 
 <script>
-    import {eventBus} from "../../main.js"
+    import {serverBus} from "../../main.js"  
     export default{
         data(){
             return{
-                servers:''
+                server:null
+            }
+        },
+        methods:{
+            resetStatus(){
+                this.server.status = 'Normal'
             }
         },
         created(){
-            eventBus.$on("postServerMsg",(serversMag)=>{
-                this.servers= serversMag;
+            serverBus.$on("serverSelected",(server)=>{
+                this.server= server;
             });
         }
     }
