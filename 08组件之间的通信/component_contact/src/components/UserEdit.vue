@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-19 22:42:51
- * @LastEditTime: 2020-02-20 10:59:13
+ * @LastEditTime: 2020-02-20 11:26:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue.js终极开发教程\08组件之间的通信\component_contact\src\components\UserEdit.vue
@@ -37,7 +37,9 @@ export default{
             set(val){
                 this.myAge = val;
                 //  return this.$emit("changeAge", val)
-                eventBus.$emit("changeAge", val)
+                // eventBus.$emit("changeAge", val)
+                //直接调用eventBus的方法
+                eventBus.changeAge(val);
             }
         }
     }
