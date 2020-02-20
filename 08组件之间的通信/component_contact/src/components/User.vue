@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-19 22:42:51
- * @LastEditTime: 2020-02-20 08:16:31
+ * @LastEditTime: 2020-02-20 09:08:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue.js终极开发教程\08组件之间的通信\component_contact\src\components\User.vue
@@ -18,7 +18,12 @@
                 <!-- 如果父组件向子组建传递的是静态的数据字符串,直接写name属性即可 -->
                 <!-- <app-user-detail name="lion""></app-user-detail> -->
                 <!-- 如果父组件向子组建传递的是动态的属性 vue的数据,需要绑定子控件props的数据即可 -->
-                <app-user-detail :myName="name" @nameWasReset="name=$event"></app-user-detail>
+                <!-- resetFn传递函数名或者函数体但是不执行,执行是在子控件 -->
+                <app-user-detail 
+                :myName="name" 
+                @nameWasReset="name=$event"
+                :resetFn="resetFn"
+                ></app-user-detail>
             </div>
             <div class="col-xs-12 col-sm-6">
                 <app-user-edit></app-user-edit>
@@ -40,6 +45,10 @@
         methods:{
             changeName(){
                 this.name = "ViewBook"
+            },
+            //回调函数体
+            resetFn(){
+                this.name = "ViewDegree"
             }
         },
         components: {

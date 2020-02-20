@@ -1,7 +1,7 @@
 <!--
  * @Author: your name   
  * @Date: 2020-02-19 22:42:51
- * @LastEditTime: 2020-02-20 08:37:35
+ * @LastEditTime: 2020-02-20 09:09:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue.js终极开发教程\08组件之间的通信\component_contact\src\components\UserDetail.vue
@@ -11,7 +11,9 @@
         <h3>You may view the User Details here</h3>
         <p>Many Details</p>
         <p>User Name: {{switchName()}}</p>
-        <button @click="reset()">Reset Name</button>
+        <button @click="reset()">Reset Name By self event</button>
+        <!-- 采用回调函数 -->
+        <button @click="resetFn()">Reset Name By CallBAck Fuction</button>
     </div>
 </template>
 
@@ -25,7 +27,9 @@
         props:{
             myName:{
                 type: String
-            }
+            },
+            // 传入了回调函数
+            resetFn: Function
         },
         //因为子级不能直接修改父级的传入,这样不符合数据流就是reset方法不能直接 写
         // this.myName = 'Max';  this.$emit("nameWasReset", this.myName)
@@ -34,7 +38,7 @@
                 return this.myName.split("").reverse().join("");
             },
             reset(){
-                this.resetName = 'Max'
+                this.resetName = 'ViewDegree'
             }
         },
         computed:{
