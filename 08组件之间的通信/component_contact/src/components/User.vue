@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-19 22:42:51
- * @LastEditTime: 2020-02-20 09:08:40
+ * @LastEditTime: 2020-02-20 09:54:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue.js终极开发教程\08组件之间的通信\component_contact\src\components\User.vue
@@ -12,6 +12,7 @@
         <p>I'm an awesome User!</p>
         <button @click="changeName">Change my Name</button>
         <p>Name is {{ name }}</p>
+        <p>Age is {{ age }}</p>
         <hr>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
@@ -23,10 +24,16 @@
                 :myName="name" 
                 @nameWasReset="name=$event"
                 :resetFn="resetFn"
+                :userAge="age"
+                @ageWasReset="age = $event"
+                :resetAgeFn="resetAgeFn"
                 ></app-user-detail>
             </div>
             <div class="col-xs-12 col-sm-6">
-                <app-user-edit></app-user-edit>
+                <app-user-edit
+                 :userAge="age"
+                 @changeAge="age = $event"
+                 ></app-user-edit>
             </div>
         </div>
     </div>
@@ -39,7 +46,8 @@
     export default {
         data: function(){
             return{
-                name: 'ViewDegree'
+                name: 'ViewDegree',
+                age: 18
             }
         },
         methods:{
@@ -49,6 +57,9 @@
             //回调函数体
             resetFn(){
                 this.name = "ViewDegree"
+            },
+            resetAgeFn(){
+                this.age = 18
             }
         },
         components: {

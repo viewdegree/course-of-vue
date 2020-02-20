@@ -1,7 +1,7 @@
 <!--
  * @Author: your name   
  * @Date: 2020-02-19 22:42:51
- * @LastEditTime: 2020-02-20 09:09:07
+ * @LastEditTime: 2020-02-20 10:03:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue.js终极开发教程\08组件之间的通信\component_contact\src\components\UserDetail.vue
@@ -11,9 +11,13 @@
         <h3>You may view the User Details here</h3>
         <p>Many Details</p>
         <p>User Name: {{switchName()}}</p>
-        <button @click="reset()">Reset Name By self event</button>
+        <p>User Age: {{userAge}}</p>
+        <button @click="resetNameFn()">Reset Name By self event</button>
         <!-- 采用回调函数 -->
         <button @click="resetFn()">Reset Name By CallBAck Fuction</button>
+        <button @click="resetAge1()">Reset Age By self event</button>
+        <!-- 采用回调函数 -->
+        <button @click="resetAgeFn()">Reset Age By CallBAck Fuction</button>
     </div>
 </template>
 
@@ -29,7 +33,9 @@
                 type: String
             },
             // 传入了回调函数
-            resetFn: Function
+            resetFn: Function,
+            userAge: Number,
+            resetAgeFn:Function
         },
         //因为子级不能直接修改父级的传入,这样不符合数据流就是reset方法不能直接 写
         // this.myName = 'Max';  this.$emit("nameWasReset", this.myName)
@@ -37,8 +43,11 @@
             switchName(){
                 return this.myName.split("").reverse().join("");
             },
-            reset(){
-                this.resetName = 'ViewDegree'
+            resetNameFn(){
+                this.resetName = 'ViewDegree' 
+            },
+            resetAge1(){
+                this.resetAge = 18
             }
         },
         computed:{
@@ -49,6 +58,15 @@
                 },
                 set(val){
                     return this.$emit("nameWasReset", val)
+                }
+            },
+            resetAge:{
+                //获取父组件传来的值myName并赋值为resetName,当resetName发生改变的时候自定义事件nameWasReset,再将改变的值传递给父组件,父组件要提前监听自定义事件,
+                get(){
+                    return this.userAge
+                },
+                set(val){
+                    return this.$emit("ageWasReset", val)
                 }
             }
         }
