@@ -1,7 +1,7 @@
 <!--
- * @Author: your name
+ * @Author: your name   
  * @Date: 2020-02-19 22:42:51
- * @LastEditTime: 2020-02-20 07:29:50
+ * @LastEditTime: 2020-02-20 08:37:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue.js终极开发教程\08组件之间的通信\component_contact\src\components\UserDetail.vue
@@ -10,9 +10,8 @@
     <div class="component">
         <h3>You may view the User Details here</h3>
         <p>Many Details</p>
-        <p>User Name: {{switchName1()}}</p>
-        <p>User Name2: {{switchName2()}}</p>
-        <p>User Name3: {{switchMyName()}}</p>
+        <p>User Name: {{switchName()}}</p>
+        <button @click="reset()">Reset Name</button>
     </div>
 </template>
 
@@ -23,37 +22,30 @@
     export default{
         //验证从父组件传入的数据为数字或者其他数据类型造成调用switchName方法的时候出错,里可以限制name1的数据类型 
         //类型有  String Array Boolean Number Object 
-            props:{
-            //设置数据类型
-            name1: [String, Array],
-            //设置是否是必须传递的值
-            name2: {
-                type: [String, Array],
-                required: true
-            },
-            //设置对象类型需要用函数返回
-            name3:{
-                type: Object,
-                default:function(){
-                    return{
-                        name: 'Max'
-                    }
-                }
-            },
-            myName: {
-                type: [String, Array],
-                default: true
+        props:{
+            myName:{
+                type: String
             }
         },
+        //因为子级不能直接修改父级的传入,这样不符合数据流就是reset方法不能直接 写
+        // this.myName = 'Max';  this.$emit("nameWasReset", this.myName)
         methods:{
-            switchName1(){
-                return this.name1.split("").reverse().join("");
-            },
-            switchName2(){
-                return this.name2.split("").reverse().join("");
-            },
-            switchMyName(){
+            switchName(){
                 return this.myName.split("").reverse().join("");
+            },
+            reset(){
+                this.resetName = 'Max'
+            }
+        },
+        computed:{
+            resetName:{
+                //获取父组件传来的值myName并赋值为resetName,当resetName发生改变的时候自定义事件nameWasReset,再将改变的值传递给父组件,父组件要提前监听自定义事件,
+                get(){
+                    return this.myName
+                },
+                set(val){
+                    return this.$emit("nameWasReset", val)
+                }
             }
         }
     }
